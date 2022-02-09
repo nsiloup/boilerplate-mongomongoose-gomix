@@ -1,6 +1,6 @@
 require('dotenv').config();
 let mongoose = require("mongoose");
-
+let log =console.log;
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 //Create a Model --->>> CRUD Part I - CREATE
@@ -48,8 +48,11 @@ let findOneByFood = (food, done) =>{
   })
 };
 
-const findPersonById = (personId, done) => {
-  done(null /*, data*/);
+//Use model.findById() to Search Your Database By _id
+let findPersonById = (personId, done)=>{
+  Person.findById(personId, (err, data)=>{
+    err?log(err):done(null, data);
+  })
 };
 
 const findEditThenSave = (personId, done) => {
