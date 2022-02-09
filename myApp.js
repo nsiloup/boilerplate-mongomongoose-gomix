@@ -8,7 +8,7 @@ let { Schema } = mongoose;
 let personSchema = new Schema({
   name: String,
   age: Number,
-  favoriteFoods : Array
+  favoriteFoods : [String] //changed it from MixedArray to ArrayOfString
 })
 let Person = mongoose.model("Person", personSchema);
 
@@ -55,10 +55,19 @@ let findPersonById = (personId, done)=>{
   })
 };
 
-const findEditThenSave = (personId, done) => {
-  const foodToAdd = "hamburger";
 
-  done(null /*, data*/);
+//Perform Classic Updates by Running Find, Edit, then Save
+let findEditThenSave = (personId, done) =>{
+  Person.findById(personId, (err, data)=>{
+    if(err){log(err)}
+    else{
+      data.favoriteFoods.push("hamburger");
+      data.save((err, updatedData)=>{
+        err?log(err):done(null, updatedData);
+      })
+    }
+  });
+
 };
 
 const findAndUpdate = (personName, done) => {
