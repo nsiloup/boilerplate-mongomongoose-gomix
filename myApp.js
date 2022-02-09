@@ -40,8 +40,12 @@ let createManyPeople = (arrayOfPeople, done) =>{
 let personName = "john";
 let findPeopleByName = (personName, done) =>Person.find({name: personName}, (err, data)=>{err?console.log(err):done(null, data)})
 
-const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+//Use model.findOne() to Return a Single Matching Document from Your Database
+let food = "bla bla bla"
+let findOneByFood = (food, done) =>{
+  Person.findOne({favoriteFoods:food}, (err, data)=>{
+    err?console.log(err) : done(null, data);
+  })
 };
 
 const findPersonById = (personId, done) => {
