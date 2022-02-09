@@ -36,9 +36,9 @@ let createManyPeople = (arrayOfPeople, done) =>{
   })
 };
 
-const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
-};
+//Use model.find() to Search Your Database
+let personName = "john";
+let findPeopleByName = (personName, done) =>Person.find({name: personName}, (err, data)=>{err?console.log(err):done(null, data)})
 
 const findOneByFood = (food, done) => {
   done(null /*, data*/);
