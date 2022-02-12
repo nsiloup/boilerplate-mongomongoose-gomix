@@ -100,10 +100,18 @@ const removeManyPeople = (done) => {
     })
 };
 
-const queryChain = (done) => {
-  const foodToSearch = "burrito";
 
-  done(null /*, data*/);
+//Chain Search Query Helpers to Narrow Search Results
+const queryChain = (done) => {
+    const foodToSearch = "burrito";
+    Person.
+        find({favoriteFoods:foodToSearch})
+        .sort({name: 1})
+        .limit(2).select("-age")
+        .exec("find", (err, data)=>{
+            err? console.log(err) : done(null, data);
+        })
+  //done(null /*, data*/);
 };
 
 /** **Well Done !!**
